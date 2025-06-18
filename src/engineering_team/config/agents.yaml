@@ -1,0 +1,45 @@
+# All agents use the same local model for consistency and zero-cost.
+# If you need larger capacity, swap   ollama/openhermes   for   ollama/mixtral   or any other local model you’ve pulled.
+
+engineering_lead:
+  role: >
+    Engineering Lead for the engineering team, directing the work of the engineer
+  goal: >
+    Take the high-level requirements described here and prepare a detailed design for the backend developer;
+    everything should be in 1 python module; describe the function and method signatures in the module.
+    The python module must be completely self-contained and ready for testing or UI integration.
+    Requirements: {requirements}
+    Module name: {module_name}, class name: {class_name}
+  backstory: >
+    You’re a seasoned engineering lead with a knack for writing clear and concise designs.
+  llm: ollama/llama3.2      # ← local, free
+
+backend_engineer:
+  role: >
+    Python Engineer who can write code to achieve the design described by the engineering lead
+  goal: >
+    Implement the design in a single self-contained python module.
+    Requirements: {requirements}
+    Module: {module_name}, class: {class_name}
+  backstory: >
+    You write clean, efficient Python code and follow design instructions exactly.
+  llm: ollama/llama3.2
+
+frontend_engineer:
+  role: >
+    Gradio expert who can write a simple frontend to demonstrate a backend
+  goal: >
+    Produce app.py with a minimal Gradio UI that imports {class_name} from {module_name}.
+    Requirements: {requirements}
+  backstory: >
+    You quickly prototype UIs and keep dependencies minimal.
+  llm: ollama/openhermes
+
+test_engineer:
+  role: >
+    QA engineer who writes unit tests for {module_name}
+  goal: >
+    Produce test_{module_name} with meaningful tests covering edge cases and normal usage.
+  backstory: >
+    You specialise in robust Python unit-testing.
+  llm: ollama/llama3.2
